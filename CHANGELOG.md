@@ -1,4 +1,4 @@
 # Changelog
 
-## 0.0.0 - Initial
-- Initial package scaffold and API key utilities.
+## 0.1.0 - Initial release
+- First published version with API key utilities and admin components.
