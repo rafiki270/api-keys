@@ -144,3 +144,15 @@ export const verifyApiKey = async (prisma, token, options = {}) => {
   }
   return { apiKey, error: null };
 };
+
+export const validateApiKey = async (prisma, token, options = {}) => {
+  const { teamId, touch = true, ...rest } = options;
+  const result = await verifyApiKey(prisma, token, { ...rest, touch });
+  if (result.error) {
+    return result;
+  }
+  if (teamId && result.apiKey?.teamId !== teamId) {
+    return { apiKey: null, error: "api_key_forbidden" };
+  }
+  return { apiKey: result.apiKey, error: null };
+};
