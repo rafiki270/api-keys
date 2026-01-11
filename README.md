@@ -43,6 +43,13 @@ await revokeApiKey(prisma, { teamId: "team-id", id: "key-id" });
 
 // Verify
 const { apiKey: resolved, error } = await verifyApiKey(prisma, token, { secret });
+
+// Validate (with optional team check)
+const { apiKey: validated, error: validationError } = await validateApiKey(prisma, token, {
+  secret,
+  teamId: "team-id", // optional: enforce ownership
+  touch: true,       // default: updates lastUsedAt
+});
 ```
 
 ## Admin UI
