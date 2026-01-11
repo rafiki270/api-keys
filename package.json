@@ -1,0 +1,17 @@
+{
+  "name": "@rafiki270/api-keys",
+  "version": "0.0.0",
+  "type": "module",
+  "main": "src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./admin": "./src/admin/index.js"
+  },
+  "files": [
+    "src"
+  ],
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  }
+}
