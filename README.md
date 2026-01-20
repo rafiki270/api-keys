@@ -77,6 +77,7 @@ model ApiKey {
   id              String   @id @default(uuid())
   teamId          String
   name            String
+  type            ApiKeyType @default(upload)
   tokenHash       String   @unique
   tokenPrefix     String
   createdByUserId String?
@@ -93,10 +94,15 @@ model ApiKey {
   @@index([tokenPrefix])
   @@index([createdByUserId])
 }
+
+enum ApiKeyType {
+  upload
+  updates
+}
 ```
 
 ## Required API endpoints (for the admin panel)
 
 - `GET /api-keys` → `{ apiKeys: ApiKey[] }`
-- `POST /api-keys` → `{ apiKey: ApiKey, token: string }`
+- `POST /api-keys` → `{ apiKey: ApiKey, token: string }` (accepts `type: "upload" | "updates"`)
 - `DELETE /api-keys/:id` → `{ revoked: boolean }`

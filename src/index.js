@@ -52,6 +52,7 @@ export const generateApiKey = (options = {}) => {
 export const buildApiKeyResponse = (record) => ({
   id: record.id,
   name: record.name,
+  type: record.type,
   prefix: record.tokenPrefix,
   createdAt: record.createdAt,
   lastUsedAt: record.lastUsedAt,
@@ -80,13 +81,14 @@ export const listApiKeys = async (prisma, teamId) => {
 };
 
 export const createApiKey = async (prisma, input) => {
-  const { teamId, name, createdByUserId, expiresAt, ...options } = input;
+  const { teamId, name, type = "upload", createdByUserId, expiresAt, ...options } = input;
   const now = new Date();
   const { token, tokenHash, tokenPrefix } = generateApiKey(options);
   const apiKey = await prisma.apiKey.create({
     data: {
       teamId,
       name,
+      type,
       tokenHash,
       tokenPrefix,
       createdByUserId: createdByUserId ?? null,
